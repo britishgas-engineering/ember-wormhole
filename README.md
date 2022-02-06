@@ -11,6 +11,9 @@ compatible with [Ember FastBoot](http://www.ember-fastboot.com/) as of version
 View a live demo here: [http://yapplabs.github.io/ember-wormhole/](http://yapplabs.github.io/ember-wormhole/)
 
 The source code for the demo is available here: [https://github.com/yapplabs/ember-wormhole/tree/master/tests/dummy/app](https://github.com/yapplabs/ember-wormhole/tree/master/tests/dummy/app)
+* Ember.js v3.24 or above
+* Ember CLI v3.24 or above
+* Node.js v12 or above
 
 ## But Why?
 
