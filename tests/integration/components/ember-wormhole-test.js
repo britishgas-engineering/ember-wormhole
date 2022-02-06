@@ -18,7 +18,7 @@ module('Integration | Component | ember wormhole', function(hooks) {
       {{/ember-wormhole}}
     `);
 
-    assert.equal(document.getElementById('wormhole').textContent.trim(), 'template block text');
+    assert.dom(document.getElementById('wormhole')).hasText('template block text');
   });
 
   test('if `renderInPlace` is truthy, the given `destinationElement` is ignored', async function(assert) {

@@ -7,7 +7,7 @@ var User = EmberObject.extend({
     firstName: null,
     lastName: null,
     fullName: computed('firstName', 'lastName', function(){
-      return A([this.get('firstName'), this.get('lastName')]).compact().join(' ');
+      return A([this.firstName, this.lastName]).compact().join(' ');
     })
 });
 

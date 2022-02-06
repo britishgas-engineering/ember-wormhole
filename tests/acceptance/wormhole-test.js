@@ -1,7 +1,14 @@
 import { set } from '@ember/object';
 import QUnit, { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
-import { click, fillIn, currentRouteName, visit, settled, setupOnerror } from '@ember/test-helpers';
+import {
+  click,
+  fillIn,
+  currentRouteName,
+  visit,
+  settled,
+  setupOnerror
+} from '@ember/test-helpers';
 import { getData } from 'dummy/utils/data';
 
 function query(sel) {
@@ -19,20 +26,20 @@ function query(sel) {
   return elems;
 }
 
-QUnit.assert.contentIn = function(sidebarId, content) {
+QUnit.assert.contentIn = function (sidebarId, content) {
   content = content || 'h1';
   this.equal(query(`#${sidebarId} ${content}`).length, 1, `content is visible in sidebar #${sidebarId}`);
 };
 
-QUnit.assert.contentNotIn = function(sidebarId, content) {
+QUnit.assert.contentNotIn = function (sidebarId, content) {
   content = content || 'h1';
   this.equal(query(`#${sidebarId} ${content}`).length, 0, `content is not visible in sidebar #${sidebarId}`);
 };
 
-module('Acceptance: Wormhole', function(hooks) {
+module('Acceptance: Wormhole', function (hooks) {
   setupApplicationTest(hooks);
 
-  test('modal example', async function(assert) {
+  test('modal example', async function (assert) {
     await visit('/');
     assert.equal(currentRouteName(), 'index');
     await click(query('button:contains(Toggle Modal)')[0]);
@@ -46,7 +53,7 @@ module('Acceptance: Wormhole', function(hooks) {
     assert.equal(query('#modals .dialog p:contains(coco)').length, 1, 'up-to-date username is shown in dialog');
   });
 
-  test('sidebar example', async function(assert) {
+  test('sidebar example', async function (assert) {
     let sidebarWormhole;
     let header1, header2;
     let sidebarFirstNode1, sidebarFirstNode2;
@@ -64,6 +71,7 @@ module('Acceptance: Wormhole', function(hooks) {
     await click(query('#sidebar button:contains(Switch)')[0]);
     sidebarFirstNode2 = sidebarWormhole._wormholeHeadNode;
     header2 = query('#othersidebar h1');
+    //assert.dom(header1).hasText(header2.textContent, 'same header text');
     assert.equal(header1.textContent, header2.textContent, 'same header text');
     assert.ok(header1[0] === header2[0], 'same header elements'); // appended elsewhere
     assert.ok(sidebarFirstNode1 === sidebarFirstNode2, 'different first nodes'); // appended elsewhere
@@ -77,7 +85,7 @@ module('Acceptance: Wormhole', function(hooks) {
     assert.contentNotIn('othersidebar');
   });
 
-  test('sidebar example in place', async function(assert) {
+  test('sidebar example in place', async function (assert) {
     await visit('/');
     await click(query('button:contains(Toggle Sidebar Content)')[0]);
     assert.contentIn('sidebar');
@@ -101,7 +109,7 @@ module('Acceptance: Wormhole', function(hooks) {
     assert.contentNotIn('example-sidebar');
   });
 
-  test('survives rerender', async function(assert) {
+  test('survives rerender', async function (assert) {
     let sidebarWormhole;
     let header1, header2;
 
@@ -119,10 +127,11 @@ module('Acceptance: Wormhole', function(hooks) {
     sidebarWormhole.rerender();
     header2 = query('#sidebar h1');
     assert.contentIn('sidebar', 'p:contains(Ringo Starr)');
+    //assert.dom(header1).hasText(header2.textContent, 'same header text');
     assert.equal(header1.textContent, header2.textContent, 'same header text');
   });
 
-  test('throws if destination element not in DOM', async function(assert) {
+  test('throws if destination element not in DOM', async function (assert) {
     await visit('/');
 
     let lastError;
@@ -136,7 +145,7 @@ module('Acceptance: Wormhole', function(hooks) {
     assert.equal(lastError && lastError.message, "ember-wormhole failed to render into '#sidebar' because the element is not in the DOM");
   });
 
-  test('throws if destination element id falsy', async function(assert) {
+  test('throws if destination element id falsy', async function (assert) {
     await visit('/');
 
     let lastError;
@@ -148,7 +157,7 @@ module('Acceptance: Wormhole', function(hooks) {
     assert.equal(lastError && lastError.message, 'ember-wormhole failed to render content because the destinationElementId was set to an undefined or falsy value.');
   });
 
-  test('preserves focus', async function(assert) {
+  test('preserves focus', async function (assert) {
     let sidebarWormhole;
     let focused;
     await visit('/');
@@ -166,7 +175,7 @@ module('Acceptance: Wormhole', function(hooks) {
     assert.equal(document.activeElement, focused);
   });
 
-  test('favicon example', async function(assert) {
+  test('favicon example', async function (assert) {
     await visit('/');
     let favicon = query('link[rel="icon"]')[0];
     assert.equal(favicon.getAttribute('href'), 'http://emberjs.com/images/favicon.png');
@@ -176,7 +185,7 @@ module('Acceptance: Wormhole', function(hooks) {
     assert.equal(favicon2.getAttribute('href'), 'http://handlebarsjs.com/images/favicon.png');
   });
 
-  test('document-title example', async function(assert) {
+  test('document-title example', async function (assert) {
     await visit('/');
     assert.equal(document.title, 'ember-wormhole');
 
